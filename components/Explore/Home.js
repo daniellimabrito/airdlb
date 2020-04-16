@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image } from 'react-native'
 import StarRating from 'react-native-star-rating';
 
 
-class Home extends Component {
+class Home extends React.Component {
     render() {
         return (
             <View style={{width:this.props.width / 2 - 30, height: this.props.width / 2 - 30, borderWidth: 0.5, borderColor: '#dddddd'}}>

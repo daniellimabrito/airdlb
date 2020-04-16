@@ -8,8 +8,9 @@ import Saved from './screens/Saved';
 import Trips from './screens/Trips';  
 import Inbox from './screens/Inbox';  
 import Profile from './screens/Profile';  
+import Chat from './screens/Chat';  
+import Login from './screens/Login';  
 import { grey } from 'color-name';
-
 
 
 export default createBottomTabNavigator({
@@ -41,13 +42,14 @@ export default createBottomTabNavigator({
       )
     }
   },
-  Inbox: {
-    screen: Inbox,
+  Login: {
+    screen: Login,
     navigationOptions: {
       tabBarLabel: 'INBOX',
       tabBarIcon: ({tintColor}) => (
         <Icon name="ios-chatboxes" color = {tintColor} size={24} />
-      )
+      ),
+     
     }  
   },
   Profile: {
@@ -58,7 +60,19 @@ export default createBottomTabNavigator({
         <Icon name="ios-person" color = {tintColor} size={24} />
       )
     }
-  }
+  },
+ 
+  Chat: {
+    screen: Chat,
+    navigationOptions: {
+      tabBarLabel: 'CHAT',
+      tabBarIcon: ({tintColor}) => (
+        <Icon name="ios-chatboxes" color = {tintColor} size={24} />
+      ),
+     // tabBarVisible: false
+     
+    }  
+  },
 
   },
   {

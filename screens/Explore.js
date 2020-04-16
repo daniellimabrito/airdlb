@@ -1,19 +1,42 @@
 import React, { Component } from 'react'
-import { Text, TextInput, View, StyleSheet, SafeAreaView, Platform, StatusBar, ScrollView, Image, Dimensions } from 'react-native';
+import { Text, TextInput, View, StyleSheet, SafeAreaView, Platform, StatusBar, ScrollView, Image, Dimensions, Animated } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Category from '../components/Explore/Category';
 import Home from '../components/Explore/Home';
+import Tag from '../components/Explore/Tag'
 
 const { height, width } = Dimensions.get('window')
 
 class Explore extends React.Component {
 
     UNSAFE_componentWillMount() {
-        this.startHeaderHeight= 80
+
+        this._scrollY = new Animated.Value(0)
+
+        this.startHeaderHeight = 80
+        this.endHeaderHeight = 50
         if (Platform.OS == 'android') {
             this.startHeaderHeight = 100 + StatusBar.currentHeight
+            this.endHeaderHeight = 70 + StatusBar.currentHeight
         }
+
+        this.animatedHeaderHeight = this._scrollY.interpolate({
+            inputRange:[0,50],
+            outputRange:[this.startHeaderHeight, this.endHeaderHeight],
+            extrapolate: 'clamp'
+        })
+
+        this.animatedOpacity = this.animatedHeaderHeight.interpolate({
+            inputRange: [this.endHeaderHeight, this.startHeaderHeight],
+            outputRange: [0,1],
+            extrapolate: 'clamp'
+        })
+        this.animatedTagTop = this.animatedHeaderHeight.interpolate({
+            inputRange: [this.endHeaderHeight, this.startHeaderHeight],
+            outputRange: [-30,10],
+            extrapolate: 'clamp'
+        })
     }
 
     render() {
@@ -21,7 +44,7 @@ class Explore extends React.Component {
 
             <SafeAreaView style={{flex:1}}>
                 <View style={{flex:1}}>
-                    <View style={{height:this.startHeaderHeight, 
+                    <Animated.View style={{height:this.animatedHeaderHeight, 
                           backgroundColor: 'white', 
                           borderBottomWidth:1, 
                           borderBottomColor: '#dddddd'}}>
@@ -41,10 +64,20 @@ class Explore extends React.Component {
                                 placeholderTextColor='grey' 
                                 style={{ flex:1, fontWeight: '700', backgroundColor: 'white'}}
                             />
-                        </View>                    
-                    </View>
+                        </View>     
+                        <Animated.View style={{flexDirection:'row', marginHorizontal:20, posistion: 'relative', top: this.animatedTagTop, opacity: this.animatedOpacity}}>
+                            <Tag name="Guest"/>
+                            <Tag name="Dates"/>
+                        </Animated.View>               
+                    </Animated.View>
                     <ScrollView
                         scrollEventThrottle={16}
+                        onScroll={Animated.event(
+                            [
+                                {nativeEvent: {contentOffset: {y: this._scrollY}}
+                                }
+                            ]
+                        )}
                     >
                         <View style={{flex:1, backgroundColor:'white', paddingTop:20}}>
                             <Text style={{fontSize:24, fontWeight:'700', paddingHorizontal:20}}>

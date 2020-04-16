@@ -9,9 +9,11 @@
   },
   "dependencies": {
     "expo": "^37.0.0",
+    "firebase": "^7.14.0",
     "react": "16.9.0",
     "react-dom": "16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
+    "react-native-gifted-chat": "^0.13.0",
     "react-native-star-rating": "^1.1.0",
     "react-native-web": "^0.11.7",
     "react-navigation": "^2.0.4"
