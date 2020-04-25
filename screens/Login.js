@@ -4,11 +4,17 @@ import { Text, View, TextInput, SafeAreaView, TouchableOpacity, StyleSheet, Imag
 
  export default class Login extends React.Component {
 
+    constructor(props){
+        super(props);
+        
+ 
+    }  
+
     state = {
         name: ''
     }
-    
     continue = () => {
+        console.log(this.state.name);
         this.props.navigation.navigate("Chat", { name: this.state.name });
     }
     render() {

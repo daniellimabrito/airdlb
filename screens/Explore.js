@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Text, TextInput, View, StyleSheet, SafeAreaView, Platform, StatusBar, ScrollView, Image, Dimensions, Animated } from 'react-native';
+import {connect} from "react-redux";
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import Category from '../components/Explore/Category';
 import Home from '../components/Explore/Home';
 import Tag from '../components/Explore/Tag'
+
+import HeaderTiles from '../components/HeaderTiles';
 
 const { height, width } = Dimensions.get('window')
 
@@ -81,17 +84,20 @@ class Explore extends React.Component {
                     >
                         <View style={{flex:1, backgroundColor:'white', paddingTop:20}}>
                             <Text style={{fontSize:24, fontWeight:'700', paddingHorizontal:20}}>
-                                What can we help you find, Daniel?
+                                What can we help you find, Daniel? {this.props.homeItems.length}
                             </Text>
                             <View style={{height:130, marginTop: 20}}>
-                                <ScrollView
-                                    horizontal={true}
-                                    showsHorizontalScrollIndicator={false}
-                                >
-                                    <Category imageUri={require('../assets/home.jpeg')} name="Home" />
-                                    <Category imageUri={require('../assets/experience.jpeg')} name="Experiences" />
-                                    <Category imageUri={require('../assets/restaurant.jpeg')} name="Restaurant" />
-                                </ScrollView>
+                           
+                            <ScrollView
+                                horizontal={true}
+                                showsHorizontalScrollIndicator={false}
+                                style={{flex:1}}>
+                                <Category imageUri={require('../assets/home.jpeg')} name="Home" />
+                                <Category imageUri={require('../assets/experience.jpeg')} name="Experiences" />
+                                <Category imageUri={require('../assets/restaurant.jpeg')} name="Restaurant" />
+                            </ScrollView>
+                          
+                               
 
                             </View>
                             <View style={{marginTop:40, paddingHorizontal: 20}}>
@@ -142,7 +148,14 @@ class Explore extends React.Component {
         )
     }
 }
-export default Explore;
+
+const mapStateToProps = (state) => {
+    return  {
+        homeItems: state
+    }
+}
+
+export default connect(mapStateToProps)(Explore);
 
 const styles = StyleSheet.create({
     container: {

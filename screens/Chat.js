@@ -31,8 +31,8 @@ class Chat extends Component {
      
 
     get user() {
-      // console.log(this.props.navigation.state.params);
-        nameVal = this.props.navigation.state.params === undefined || this.props.navigation.state.params.name === "" ? '' : this.props.navigation.state.name
+       console.log(this.props.route.params.name);
+        nameVal = this.props.route.params.name === undefined || this.props.route.params.name === "" ? '' : this.props.route.params.name
         return {
             _id: Fire.uid,
             name: nameVal// this.props.navigation.state.params.name
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     message: {
         fontSize: 22,
         fontWeight: '600',
-        
+
         marginBottom:20
     }
   });
